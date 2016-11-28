@@ -15,6 +15,17 @@
 
 (function($) {
 
+    // Body element. 
+    var bodyEl = document.body;
+	
+    // Preload all images..
+    imagesLoaded(bodyEl, { background: true }, function() {
+		setTimeout(function () {
+            bodyEl.classList.remove('loading');
+        }, 2000)
+        //bodyEl.classList.remove('loading');
+    });
+
 	// Main sliders
     var $item = $('.main-slider.carousel .item'); 
     var $wHeight = $(window).height();
