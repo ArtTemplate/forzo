@@ -17,11 +17,12 @@
 
 ------------------------------------------------ */
 
-$white-color:         #fff;
-$turquoise-color:     #10e9d7;
-$black-color:         #10131a;
-$gray-color-primary:  #ececee;
-$gray-color-second:   #c0c3c8;
+$white-color:            #fff;
+$turquoise-color:        #10e9d7;
+$turquoise-color-second: #15fbea;
+$black-color:            #10131a;
+$gray-color-primary:     #ececee;
+$gray-color-second:      #c0c3c8;
 
 $font-title: 'Montserrat', sans-serif;
 $font-body:  'Merriweather', serif;
@@ -34,6 +35,15 @@ $font-body:  'Merriweather', serif;
 @mixin animation($animation) {
   -webkit-animation: $animation;
           animation: $animation;
+}
+
+@mixin keyframes($name) {
+  @-webkit-keyframes #{$name} {
+      @content;
+  }
+  @keyframes #{$name} {
+      @content;
+  }
 }
 
 /* ---------------------------
@@ -99,15 +109,16 @@ a {
   color: $turquoise-color;
   text-decoration: underline;
   transition: all .6s ease;
-}
-a:hover {
-  text-decoration: none;
-}
-a:focus {
-  outline: none;
-  text-decoration: none;
-}
-	
+
+  &:hover {
+    text-decoration: none;
+  }
+  
+  &:focus {
+    outline: none;
+    text-decoration: none;
+  }
+}	
 img {
   -webkit-user-select: none;
 	 -moz-user-select: none;
@@ -141,71 +152,76 @@ button:focus { outline: none; }
   line-height: 2.7em;
   letter-spacing: 0.07em;
   padding: 0 30px;
+  position: relative;
   text-transform: uppercase;
   text-decoration: none;
-}
-.btn i {
-  font-size: 14px;
-  padding-left: 8px;
-  position: relative;
-  top: -1px;
-}
-.btn:focus {
-  color: $white-color;
-}
+  transition: all 0.9s;
+
+  i {
+    font-size: 14px;
+    padding-left: 8px;
+    position: relative;
+    top: -1px;
+  }
+  &:focus {
+    color: $white-color;
+  }
+}  
 .btn-white {
   background-color: transparent;
   border: 2px solid $white-color;
-}
-.btn-white:hover {
-  background-color: $white-color;
-  border: 2px solid $white-color;
-  color: $black-color;
+
+  &:hover {
+    background-color: $white-color;
+    border: 2px solid $white-color;
+    color: $black-color;
+  }
+  svg {
+    top: 0;
+    left: 0;
+  }
 }
 
 /* ---------------------------
     - Loading
 --------------------------- */
-.loading::before {
-  content: '';
-  position: fixed;
-  color: #fff;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: #15fbea;
-  z-index: 100;
-  text-align: center;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-}
-.loading::after {
-  content: '';
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  width: 70px;
-  height: 70px;
-  margin: -35px 0 0 -35px;
-  pointer-events: none;
-  z-index: 101;
-  border: 7px solid #12e7d7;
-  border-top-color: #fff;
-  border-radius: 50%;
-  -webkit-transition: opacity 0.3s;
-          transition: opacity 0.3s;
-  -webkit-animation: rotateLoader 0.8s linear infinite forwards;
-          animation: rotateLoader 0.8s linear infinite forwards;
-}
-@-webkit-keyframes rotateLoader {
-  to {
-    -webkit-transform: rotate3d(0, 0, 1, 360deg);
-            transform: rotate3d(0, 0, 1, 360deg);
+.loading {
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: fixed;
+    color: $white-color;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: $turquoise-color-second;
+    z-index: 1040;
+    text-align: center;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+  }
+  &::after {
+    content: '';
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 70px;
+    height: 70px;
+    margin: -35px 0 0 -35px;
+    pointer-events: none;
+    z-index: 1041;
+    border: 7px solid #12e7d7;
+    border-top-color: #fff;
+    border-radius: 50%;
+    transition: opacity 0.3s;
+	@include animation (rotateLoader 0.8s linear infinite forwards);
   }
 }
-@keyframes rotateLoader {
+
+@include keyframes(rotateLoader) {
   to {
     -webkit-transform: rotate3d(0, 0, 1, 360deg);
             transform: rotate3d(0, 0, 1, 360deg);
@@ -219,6 +235,147 @@ button:focus { outline: none; }
   background: $black-color;
   color: $white-color;
   height: 100%;
+}
+
+/* ---------------------------
+    - Top
+--------------------------- */
+.top {
+  height: 110px;
+  padding: 35px 15px;
+}
+
+/* Main Nav */
+.main-nav {
+  border: 0;
+  border-radius: 0;
+  font-family: $font-title;
+  font-size: 14px;
+  font-weight: 700;
+  margin: 0;
+  min-height: 30px;
+  padding: 10px 0;
+  text-transform: uppercase;
+
+  .nav {
+    opacity: 0;
+	visibility: hidden;
+	transform: translateX(10%);
+    transition: transform .8s ease, opacity 0.8s ease;
+	
+    &.active {
+	  opacity: 1;
+	  visibility: visible;
+      transform: translateX(0%);
+      transition: transform .8s ease, opacity 3.0s ease;
+    }
+  }
+
+  /* Hamburger */
+  .menu-toggle {
+    height: 32px;
+    width: 32px;
+    position: absolute;
+    top: 4px;
+	right: 0;
+    transition: all .3s ease;
+	
+    &.active span i:nth-child(2) {
+      width: 100%;
+    }
+    span {
+      width: 32px;
+      height: 32px;
+      position: absolute;
+      cursor: pointer;
+      z-index: 1;
+    }
+    span i {
+      background-color: $white-color;
+      width: 25px;
+      height: 2px;
+	  position: absolute;
+      right: 0;
+      transition: width .6s ease, background-color 2.0s ease;
+    }
+    span:hover i {
+      background-color: $turquoise-color-second;
+    }
+    span i:nth-child(1) {
+      top: 22%;
+    }
+    span i:nth-child(2) {
+      top: 48%;
+    }
+    span i:nth-child(3) {
+      top: 72%;
+    }
+	svg {
+      top: 0;
+      left: 0;
+    }
+	div {
+	  pointer-events: none;
+	}
+  }
+  
+  .navbar-collapse {
+    border: 0;
+    padding-right: 0;
+    padding-left: 0;
+  }
+  
+  .navbar-toggle {
+    border-color: #fff;
+	background-color: #fff; 
+	float: left;
+	margin-top: 32px;
+	width: 100%;
+	
+    &:hover,
+    &:focus {
+	  border-color: #fff;
+	  background-color: #fff; 
+    }
+    &:hover > .icon-bar,
+    &:focus > .icon-bar {
+	  background-color: #fff; 
+    }
+    .icon-bar {
+	  background-color: #fff;
+    }
+  }
+  
+  .navbar-nav {
+    margin: 0;
+	
+    li > a,
+    .open .dropdown-menu > li > a {
+	  color: $white-color;
+	  letter-spacing: 0.08em;
+	  text-decoration: none;
+    }
+    li > a {
+	  padding: 0 15px;
+    }
+    li:last-child > a {
+	  padding-right: 60px;
+    }
+    li > a:hover,
+    li > a:focus,
+    .open > a,
+    .nav .open > a, .nav .open > a:focus, 
+	.nav .open > a:hover,
+    .open .dropdown-menu > li > a:hover,
+    li > a.dropdown-toggle:focus {
+	  background: transparent;
+	  color: $turquoise-color-second;
+    }
+  } 
+  
+  .dropdown-toggle i {
+	 margin-left: 8px;
+  }
 }
 
 /* ---------------------------
@@ -256,7 +413,6 @@ button:focus { outline: none; }
     opacity: 0;
     transition-property: opacity;
   }
-
   h1 {
     color: $white-color;
     font-size: 90px;
@@ -267,24 +423,21 @@ button:focus { outline: none; }
     position: relative;
     text-transform: uppercase;
   }
-	
-  p {
-    font-size: 18px;
-    font-weight: 300;
-    line-height: 34px;
-    margin-left: 54px;
-  }
-	
   h1:before {
     content: "";
-    border-left: 12px solid $turquoise-color;
+    border-left: 12px solid $turquoise-color-second;
     height: 100%;
     width: 12px;
     position: absolute;
     top: 0;
     left: -48px;
   }
-  
+  p {
+    font-size: 18px;
+    font-weight: 300;
+    line-height: 34px;
+    margin-left: 54px;
+  }  
   .bottom-text {
     color: $black-color;
 	font-family: $font-title;
@@ -296,32 +449,26 @@ button:focus { outline: none; }
 	opacity: .2;
 	text-transform: uppercase;
   }
-  
   .btn {
     margin-left: 54px;
 	margin-top: 27px;
   }
-  
   .active {
     opacity: 1;
   }
-	
   .active.left,
   .active.right {
     left: 0;
     opacity: 0;
     z-index: 1;
   }
-	
   .next.left,
   .prev.right {
     opacity: 1;
   }
-	
   .carousel-control {
     z-index: 2;
   }
-	
   .item.next,
   .item.active.right,
   .item.prev,
@@ -329,7 +476,6 @@ button:focus { outline: none; }
     opacity: 0;
     @include transform (translate3d(0, 0, 0));
   }
-	
   .item.next.left,
   .item.prev.right,
   .item.active {
@@ -345,24 +491,20 @@ button:focus { outline: none; }
   top: 50%;
   margin-top: -18px;
   width: 48px;
-}
-.carousel-indicators {
+
   .active {
     background: transparent;
     width: 48px;
     height: 20px;
 	margin: 0;
   }
-  
   .active span {
-    border-color: $turquoise-color;
+    border-color: $turquoise-color-second;
     width: 48px;
   }
-
   .active:hover span{
     opacity: 1;
   }
-  
   li {
     border: 0;
 	border-radius: 0;
@@ -376,7 +518,6 @@ button:focus { outline: none; }
     text-indent: -999px;
 	transition: all .4s ease;
   }
-  
   li span {
     border-top: 2px solid $white-color;
 	border-radius: 0;
@@ -388,7 +529,6 @@ button:focus { outline: none; }
 	opacity: 1;
 	transition: all .4s ease;
   }
-  
   li:hover,
   li:hover span {
     width: 48px;

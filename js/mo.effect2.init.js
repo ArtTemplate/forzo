@@ -1,5 +1,5 @@
-// Badge animation
-var els = document.querySelectorAll('.badge');
+// Btn animation
+var els = document.querySelectorAll('.btn-white');
 [].forEach.call( els, function(el) {
 var elSpan = el.querySelector('span'),
     timeline = new mojs.Timeline(),
@@ -11,8 +11,9 @@ tween1 = new mojs.Transit({
 	parent: el,
 	duration: 1000,
 	delay: 100,
-	type: 'circle',
-	radius: {0: 95},
+	type: 'rect',
+	radius: {0: 60},
+	scaleX: 4,	
 	fill: 'transparent',
 	stroke: '#ffffff',
 	strokeWidth: {50:0},
@@ -27,8 +28,9 @@ tween2 = new mojs.Transit({
 	parent: el,
 	duration: 1800,
 	delay: 300,
-	type: 'circle',
-	radius: {0: 80},
+	type: 'rect',
+	radius: {0: 40},
+	scaleX: 4,
 	fill: 'transparent',
 	stroke: '#ffffff',
 	strokeWidth: {40:0},
@@ -40,7 +42,7 @@ tween2 = new mojs.Transit({
 });
 
 timeline.add(tween1, tween2);
-el.addEventListener('mouseenter', function () { //mousedown
+el.addEventListener('mousedown', function () { //mouseenter
     timeline.start();
 });
 

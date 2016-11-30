@@ -15,14 +15,13 @@
 
 (function($) {
 
-    // Body element. 
+    // Preload all images.
     var bodyEl = document.body;
 	
-    // Preload all images..
     imagesLoaded(bodyEl, { background: true }, function() {
 		setTimeout(function () {
             bodyEl.classList.remove('loading');
-        }, 2000)
+        }, 800)
         //bodyEl.classList.remove('loading');
     });
 
@@ -47,7 +46,12 @@
         $wHeight = $(window).height();
         $item.height($wHeight);
     });
-	
+
+    // Hamburger
+	$('.menu-toggle').on('click', function() {
+	    $('.menu, .menu-toggle').toggleClass('active');
+    });
+
     // Autoresize textarea
     $("textarea").each(function(){
         autosize(this);

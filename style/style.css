@@ -89,11 +89,9 @@ a {
   text-decoration: underline;
   transition: all .6s ease;
 }
-
 a:hover {
   text-decoration: none;
 }
-
 a:focus {
   outline: none;
   text-decoration: none;
@@ -154,17 +152,17 @@ button:focus {
   line-height: 2.7em;
   letter-spacing: 0.07em;
   padding: 0 30px;
+  position: relative;
   text-transform: uppercase;
   text-decoration: none;
+  transition: all 0.9s;
 }
-
 .btn i {
   font-size: 14px;
   padding-left: 8px;
   position: relative;
   top: -1px;
 }
-
 .btn:focus {
   color: #fff;
 }
@@ -173,16 +171,22 @@ button:focus {
   background-color: transparent;
   border: 2px solid #fff;
 }
-
 .btn-white:hover {
   background-color: #fff;
   border: 2px solid #fff;
   color: #10131a;
 }
+.btn-white svg {
+  top: 0;
+  left: 0;
+}
 
 /* ---------------------------
     - Loading
 --------------------------- */
+.loading {
+  overflow: hidden;
+}
 .loading::before {
   content: '';
   position: fixed;
@@ -192,13 +196,12 @@ button:focus {
   width: 100%;
   height: 100%;
   background: #15fbea;
-  z-index: 100;
+  z-index: 1040;
   text-align: center;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
 }
-
 .loading::after {
   content: '';
   position: fixed;
@@ -208,11 +211,10 @@ button:focus {
   height: 70px;
   margin: -35px 0 0 -35px;
   pointer-events: none;
-  z-index: 101;
+  z-index: 1041;
   border: 7px solid #12e7d7;
   border-top-color: #fff;
   border-radius: 50%;
-  -webkit-transition: opacity 0.3s;
   transition: opacity 0.3s;
   -webkit-animation: rotateLoader 0.8s linear infinite forwards;
   animation: rotateLoader 0.8s linear infinite forwards;
@@ -237,6 +239,135 @@ button:focus {
   background: #10131a;
   color: #fff;
   height: 100%;
+}
+
+/* ---------------------------
+    - Top
+--------------------------- */
+.top {
+  height: 110px;
+  padding: 35px 15px;
+}
+
+/* Main Nav */
+.main-nav {
+  border: 0;
+  border-radius: 0;
+  font-family: "Montserrat", sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  margin: 0;
+  min-height: 30px;
+  padding: 10px 0;
+  text-transform: uppercase;
+  /* Hamburger */
+}
+.main-nav .nav {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(10%);
+  transition: transform .8s ease, opacity 0.8s ease;
+}
+.main-nav .nav.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(0%);
+  transition: transform .8s ease, opacity 3.0s ease;
+}
+.main-nav .menu-toggle {
+  height: 32px;
+  width: 32px;
+  position: absolute;
+  top: 4px;
+  right: 0;
+  transition: all .3s ease;
+}
+.main-nav .menu-toggle.active span i:nth-child(2) {
+  width: 100%;
+}
+.main-nav .menu-toggle span {
+  width: 32px;
+  height: 32px;
+  position: absolute;
+  cursor: pointer;
+  z-index: 1;
+}
+.main-nav .menu-toggle span i {
+  background-color: #fff;
+  width: 25px;
+  height: 2px;
+  position: absolute;
+  right: 0;
+  transition: width .6s ease, background-color 2.0s ease;
+}
+.main-nav .menu-toggle span:hover i {
+  background-color: #15fbea;
+}
+.main-nav .menu-toggle span i:nth-child(1) {
+  top: 22%;
+}
+.main-nav .menu-toggle span i:nth-child(2) {
+  top: 48%;
+}
+.main-nav .menu-toggle span i:nth-child(3) {
+  top: 72%;
+}
+.main-nav .menu-toggle svg {
+  top: 0;
+  left: 0;
+}
+.main-nav .menu-toggle div {
+  pointer-events: none;
+}
+.main-nav .navbar-collapse {
+  border: 0;
+  padding-right: 0;
+  padding-left: 0;
+}
+.main-nav .navbar-toggle {
+  border-color: #fff;
+  background-color: #fff;
+  float: left;
+  margin-top: 32px;
+  width: 100%;
+}
+.main-nav .navbar-toggle:hover, .main-nav .navbar-toggle:focus {
+  border-color: #fff;
+  background-color: #fff;
+}
+.main-nav .navbar-toggle:hover > .icon-bar, .main-nav .navbar-toggle:focus > .icon-bar {
+  background-color: #fff;
+}
+.main-nav .navbar-toggle .icon-bar {
+  background-color: #fff;
+}
+.main-nav .navbar-nav {
+  margin: 0;
+}
+.main-nav .navbar-nav li > a,
+.main-nav .navbar-nav .open .dropdown-menu > li > a {
+  color: #fff;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+}
+.main-nav .navbar-nav li > a {
+  padding: 0 15px;
+}
+.main-nav .navbar-nav li:last-child > a {
+  padding-right: 60px;
+}
+.main-nav .navbar-nav li > a:hover,
+.main-nav .navbar-nav li > a:focus,
+.main-nav .navbar-nav .open > a,
+.main-nav .navbar-nav .nav .open > a, .main-nav .navbar-nav .nav .open > a:focus,
+.main-nav .navbar-nav .nav .open > a:hover,
+.main-nav .navbar-nav .open .dropdown-menu > li > a:hover,
+.main-nav .navbar-nav li > a.dropdown-toggle:focus {
+  background: transparent;
+  color: #15fbea;
+}
+.main-nav .dropdown-toggle i {
+  margin-left: 8px;
 }
 
 /* ---------------------------
@@ -286,20 +417,20 @@ button:focus {
   position: relative;
   text-transform: uppercase;
 }
-.main-slider p {
-  font-size: 18px;
-  font-weight: 300;
-  line-height: 34px;
-  margin-left: 54px;
-}
 .main-slider h1:before {
   content: "";
-  border-left: 12px solid #10e9d7;
+  border-left: 12px solid #15fbea;
   height: 100%;
   width: 12px;
   position: absolute;
   top: 0;
   left: -48px;
+}
+.main-slider p {
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 34px;
+  margin-left: 54px;
 }
 .main-slider .bottom-text {
   color: #10131a;
@@ -356,7 +487,6 @@ button:focus {
   margin-top: -18px;
   width: 48px;
 }
-
 .carousel-indicators .active {
   background: transparent;
   width: 48px;
@@ -364,7 +494,7 @@ button:focus {
   margin: 0;
 }
 .carousel-indicators .active span {
-  border-color: #10e9d7;
+  border-color: #15fbea;
   width: 48px;
 }
 .carousel-indicators .active:hover span {

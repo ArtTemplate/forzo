@@ -1,5 +1,5 @@
-// Badge animation
-var els = document.querySelectorAll('.badge');
+// Btn animation
+var els = document.querySelectorAll('.btn-white');
 [].forEach.call( els, function(el) {
 var elSpan = el.querySelector('span'),
     timeline = new mojs.Timeline(),
